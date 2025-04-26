@@ -17,7 +17,11 @@ export const metadata: Metadata = {
 
 const RootLayout: NextPage<PropsWithChildren> = ({ children }) => (
   <html lang="pt-br">
-    <body className={`${fontSans.variable} antialiased`}>{children}</body>
+    <body
+      className={`${fontSans.className} bg-background text-foreground antialiased`}
+    >
+      {children}
+    </body>
   </html>
 );
 
