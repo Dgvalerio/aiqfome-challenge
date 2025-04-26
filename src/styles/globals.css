@@ -12,6 +12,8 @@
   --color-purple-200: #EECFFC;
   --color-purple-500: #7B1FA2;
 
+  --muted-foreground: var(--color-neutrals-500);
+
   /* From me */
   --color-primary: #7B1FA2;
   --color-primary-foreground: #FFFFFF;
@@ -66,7 +68,7 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.25rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

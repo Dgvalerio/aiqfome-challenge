@@ -1,13 +1,22 @@
-import { FC } from 'react';
+import { ComponentProps, FC } from 'react';
 
 import Image from 'next/image';
 
 import { ArrowRightIcon } from '@/components/icon/arrow-right';
 import { LocationIcon } from '@/components/icon/location';
 import { UserIcon } from '@/components/icon/user';
+import { cn } from '@/lib/tailwind/utils';
 
-export const Header: FC = () => (
-  <header className="bg-primary text-primary-foreground gap-6 flex p-4 items-center">
+type HeaderProps = ComponentProps<'header'>;
+
+export const Header: FC<HeaderProps> = ({ className, ...props }) => (
+  <header
+    className={cn(
+      'bg-primary text-primary-foreground gap-6 flex p-4 items-center',
+      className
+    )}
+    {...props}
+  >
     <Image priority width={32} height={32} src="/logo.svg" alt="Logo AiQFome" />
     <div className="flex gap-2.5 items-center flex-1">
       <LocationIcon />
