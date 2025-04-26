@@ -1,23 +1,23 @@
 import { PropsWithChildren } from 'react';
 
 import type { Metadata, NextPage } from 'next';
-import { Geist } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 
-import '@/app/globals.css';
+import '@/styles/globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const fontSans = Nunito({
+  variable: '--font-nunito-sans',
   subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: 'AiQFome',
-  description: 'Desafio front do AiQFome',
+  title: 'aiqfome',
+  description: 'Desafio front do aiqfome',
 };
 
 const RootLayout: NextPage<PropsWithChildren> = ({ children }) => (
   <html lang="pt-br">
-    <body className={`${geistSans.variable} antialiased`}>{children}</body>
+    <body className={`${fontSans.variable} antialiased`}>{children}</body>
   </html>
 );
 
