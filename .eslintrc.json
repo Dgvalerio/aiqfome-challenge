@@ -3,5 +3,8 @@
     "next/core-web-vitals",
     "next/typescript",
     "@dgvalerio/eslint-config/next"
-  ]
+  ],
+  "rules": {
+    "react/no-unknown-property": "error"
+  }
 }
