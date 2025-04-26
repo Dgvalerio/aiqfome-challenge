@@ -6,16 +6,27 @@
 @theme inline {
   /* From Figma */
   --color-neutrals-0: #FFFFFF;
+  --color-neutrals-50: #F5F6F9;
+  --color-neutrals-100: #EEF0F5;
+  --color-neutrals-400: #A8ADB7;
   --color-neutrals-500: #6D6F73;
+  --color-neutrals-700: #393A3C;
   --color-neutrals-900: #202326;
 
   --color-purple-200: #EECFFC;
   --color-purple-500: #7B1FA2;
+  --color-purple-700: #580F78;
+
+  --color-teal-600: #027A7A;
+
+  --color-yellow-500: #FFB300;
 
   --muted-foreground: var(--color-neutrals-500);
 
+  --color-dividers-gray: #CDD1D9;
+
   /* From me */
-  --color-primary: #7B1FA2;
+  --color-primary: var(--color-purple-500);
   --color-primary-foreground: #FFFFFF;
 
   --color-background: var(--color-neutrals-0);
@@ -140,6 +151,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

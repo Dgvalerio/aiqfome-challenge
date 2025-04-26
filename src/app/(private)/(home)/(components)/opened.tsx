@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Store, StoreProps } from '@/app/(home)/(components)/store';
+import { Store, StoreProps } from '@/app/(private)/(home)/(components)/store';
 
 export const OpenedStores: FC<{ stores: StoreProps[] }> = ({ stores }) => (
   <div className="flex flex-col gap-4 px-4 pb-3 pt-6">

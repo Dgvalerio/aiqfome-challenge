@@ -1,11 +1,10 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 
-import { ClosedStores } from '@/app/(home)/(components)/closed';
-import { OpenedStores } from '@/app/(home)/(components)/opened';
-import { SearchInput } from '@/app/(home)/(components)/search-input';
-import { StoreProps } from '@/app/(home)/(components)/store';
-import { Header } from '@/components/header/header';
+import { ClosedStores } from '@/app/(private)/(home)/(components)/closed';
+import { OpenedStores } from '@/app/(private)/(home)/(components)/opened';
+import { SearchInput } from '@/app/(private)/(home)/(components)/search-input';
+import { StoreProps } from '@/app/(private)/(home)/(components)/store';
 
 const stores: StoreProps[] = [
   {
@@ -120,10 +119,7 @@ const stores: StoreProps[] = [
 
 const HomePage: NextPage = () => (
   <div className="flex flex-col">
-    <div className="flex flex-col bg-primary">
-      <Header className="pb-0" />
-      <SearchInput />
-    </div>
+    <SearchInput className="pt-0" />
     <Image
       priority
       width={390}
