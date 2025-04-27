@@ -48,7 +48,7 @@ export const Store: FC<StoreProps> = ({
             </>
           ) : (
             <>
-              <DeliveryIcon />
+              <DeliveryIcon className="text-teal-600" />
               <span className="text-teal-600">grátis</span>
             </>
           )}

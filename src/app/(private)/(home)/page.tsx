@@ -118,7 +118,7 @@ const stores: StoreProps[] = [
 ];
 
 const HomePage: NextPage = () => (
-  <div className="flex flex-col">
+  <>
     <SearchInput className="pt-0" />
     <Image
       priority
@@ -129,7 +129,7 @@ const HomePage: NextPage = () => (
     />
     <OpenedStores stores={stores} />
     <ClosedStores stores={stores} />
-  </div>
+  </>
 );
 
 export default HomePage;

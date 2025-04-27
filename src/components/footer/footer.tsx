@@ -6,6 +6,5 @@ export const Footer: FC = () => (
     <span>
       aiqfome.com © 2007-2023 aiqfome LTDA .<br /> CNPJ: 09.186.786/0001-58
     </span>
-    <span />
   </footer>
 );

@@ -1,12 +1,13 @@
-import { FC } from 'react';
+import { ComponentProps, FC } from 'react';
 
-export const StarIcon: FC = () => (
+export const StarIcon: FC<ComponentProps<'svg'>> = ({ ...props }) => (
   <svg
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g clipPath="url(#clip0_2455_2930)">
       <path
