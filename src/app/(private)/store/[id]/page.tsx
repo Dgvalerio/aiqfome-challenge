@@ -14,9 +14,21 @@ import { CurrencyIcon } from '@/components/icon/currency';
 import { DeliveryIcon } from '@/components/icon/delivery';
 import { SaveIcon } from '@/components/icon/save';
 import { ShareIcon } from '@/components/icon/share';
+import { SpicyIcon } from '@/components/icon/spicy';
 import { StarIcon } from '@/components/icon/star';
+import { VeganIcon } from '@/components/icon/vegan';
 import { cn } from '@/lib/tailwind/utils';
 import { formatCurrency } from '@/utils/functions/format-currency';
+
+interface MenuSubItemProps {
+  name: string;
+  description: string;
+  value: number;
+  originalValue?: number;
+  isInitial?: boolean;
+  isSpicy?: boolean;
+  isVegan?: boolean;
+}
 
 const Info: FC = () => (
   <section className="py-6 px-4 flex flex-col gap-1.5">
@@ -72,9 +84,9 @@ const MenuItem: FC<{
   id: string;
   title: string;
   details?: string;
-  content?: string;
+  items: MenuSubItemProps[];
   showCurrency?: boolean;
-}> = ({ id, title, details, content, showCurrency }) => (
+}> = ({ id, title, details, items, showCurrency }) => (
   <AccordionItem value={id}>
     <AccordionTrigger>
       <div className="flex-col flex gap-1">
@@ -88,41 +100,103 @@ const MenuItem: FC<{
         )}
       </div>
     </AccordionTrigger>
-    <AccordionContent>{content}</AccordionContent>
+    <AccordionContent>
+      <div className="flex flex-col px-4 pb-4 pt-2 gap-6">
+        {items.map((item, index) => (
+          <div key={index} className="flex gap-4">
+            <div className="flex-1">
+              <div className="font-semibold flex gap-1 text-sm text-neutrals-900 items-center">
+                {item.name} {item.isSpicy && <SpicyIcon />}
+                {item.isVegan && <VeganIcon />}
+              </div>
+              <div
+                className="text-xs text-neutrals-500 line-clamp-2"
+                title={item.description}
+              >
+                {item.description}
+              </div>
+            </div>
+            <div className="text-right">
+              {item.originalValue && (
+                <div className="font-bold text-xs line-through text-neutrals-500">
+                  {formatCurrency.format(item.originalValue)}
+                </div>
+              )}
+              {item.isInitial && (
+                <div className="font-bold text-xs text-neutrals-500">
+                  a partir de
+                </div>
+              )}
+              <div
+                className={cn(
+                  'font-bold text-sm flex gap-0.5 items-center',
+                  item.originalValue ? 'text-green-500' : 'text-purple-500'
+                )}
+              >
+                {item.originalValue && <CurrencyIcon height="16" width="16" />}
+                {formatCurrency.format(item.value)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </AccordionContent>
   </AccordionItem>
 );
 
+const subItems: MenuSubItemProps[] = [
+  {
+    name: 'Califórnia',
+    description: 'Kani, pepino e maçã ou manga',
+    value: 13.99,
+    originalValue: 17,
+  },
+  {
+    name: 'Califórnia',
+    description: 'Kani, pepino e maçã ou manga',
+    value: 13.99,
+    isVegan: true,
+  },
+  {
+    name: 'Filadélfia',
+    description: 'Arroz, salmão fresco, cream cheese e cebolinha',
+    value: 13.99,
+  },
+  {
+    name: 'Mix',
+    description:
+      'Escolha 3 ingredientes: shimeji, alface americana, rúcula, pepino, tomate seco, cream cheese, maionese, goiabada, banana, requeijão, molho de maracujá, manga, maçã e morango.',
+    value: 13.99,
+    isInitial: true,
+    isSpicy: true,
+  },
+  {
+    name: 'Salmão picante',
+    description: 'Alga, arroz, salmão fresco, pimenta e cebolinha',
+    value: 13.99,
+    isInitial: true,
+    isSpicy: true,
+  },
+];
+
 const Menu: FC = () => (
   <Accordion type="single" collapsible>
-    <MenuItem
-      id="item-1"
-      title="Niguiris"
-      showCurrency
-      content="Yes. It adheres to the WAI-ARIA design pattern."
-    />
+    <MenuItem id="item-1" title="Niguiris" showCurrency items={subItems} />
     <MenuItem
       id="item-2"
       title="Ceviches"
       details="um prato super refrescante de peixe fatiado e marinado com limão"
       showCurrency
-      content="Yes. It adheres to the WAI-ARIA design pattern."
+      items={subItems}
     />
     <MenuItem
       id="item-3"
       title="Temakis"
       details="sushi em forma de cone com salmão e cream cheese"
-      content="Yes. It adheres to the WAI-ARIA design pattern."
+      items={subItems}
     />
-    <MenuItem
-      id="item-4"
-      title="Bebidas"
-      content="Yes. It adheres to the WAI-ARIA design pattern."
-    />
-    <MenuItem
-      id="item-5"
-      title="Sobremesas"
-      content="Yes. It adheres to the WAI-ARIA design pattern."
-    />
+    <MenuItem id="item-4" title="Bebidas" items={subItems} />
+    <MenuItem id="item-5" title="Sobremesas" items={subItems} />
   </Accordion>
 );
 
