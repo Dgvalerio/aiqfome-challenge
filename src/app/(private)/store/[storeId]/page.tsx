@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import {
   Accordion,
@@ -103,7 +104,7 @@ const MenuItem: FC<{
     <AccordionContent>
       <div className="flex flex-col px-4 pb-4 pt-2 gap-6">
         {items.map((item, index) => (
-          <div key={index} className="flex gap-4">
+          <Link href="/store/7/item/7" key={index} className="flex gap-4">
             <div className="flex-1">
               <div className="font-semibold flex gap-1 text-sm text-neutrals-900 items-center">
                 {item.name} {item.isSpicy && <SpicyIcon />}
@@ -137,7 +138,7 @@ const MenuItem: FC<{
                 {formatCurrency.format(item.value)}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </AccordionContent>
