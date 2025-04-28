@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 
 import { NextPage } from 'next';
 import Image from 'next/image';
@@ -6,6 +6,9 @@ import Image from 'next/image';
 import { Button } from '@/components/button/button';
 import { Checkbox } from '@/components/checkbox/checkbox';
 import { CurrencyIcon } from '@/components/icon/currency';
+import { MinusIcon } from '@/components/icon/minus';
+import { PlusIcon } from '@/components/icon/plus';
+import { TrashIcon } from '@/components/icon/trash';
 import { Label } from '@/components/label/label';
 import {
   RadioGroup,
@@ -15,41 +18,66 @@ import { Textarea } from '@/components/textarea/textarea';
 import { cn } from '@/lib/tailwind/utils';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
-const Info: FC = () => (
-  <section className="flex flex-col gap-4 border-b-4 pb-4 border-neutrals-100">
-    <Image
-      src="https://picsum.photos/390/195"
-      width={390}
-      height={195}
-      alt="Ceviche de salmão"
-      priority
-    />
-    <div className="font-extrabold flex flex-col px-4 gap-1.5 text-xs text-neutrals-500">
-      <h1 className="text-xl text-neutrals-700">Ceviche de salmão</h1>
-      <div className="flex text-sm items-center gap-2">
-        a partir de
-        <span className="text-lg text-purple-500">
-          {formatCurrency.format(19.9)}
+const Info: FC = () => {
+  const count: number = 2;
+
+  return (
+    <section className="flex flex-col gap-4 border-b-4 pb-4 border-neutrals-100">
+      <Image
+        src="https://picsum.photos/390/195"
+        width={390}
+        height={195}
+        alt="Ceviche de salmão"
+        priority
+      />
+      <div className="font-extrabold flex flex-col px-4 gap-1.5 text-xs text-neutrals-500">
+        <h1 className="text-xl text-neutrals-700">Ceviche de salmão</h1>
+        <div className="flex text-sm items-center gap-2">
+          a partir de
+          <span className="text-lg text-purple-500">
+            {formatCurrency.format(19.9)}
+          </span>
+        </div>
+        <span className="font-semibold">
+          salmão temperado com limão, cebola e pimenta
         </span>
       </div>
-      <span className="font-semibold">
-        salmão temperado com limão, cebola e pimenta
-      </span>
-    </div>
-    <div className="flex justify-between px-4 py-2">
-      <div className="text-neutrals-700 font-bold flex flex-col gap-1.5">
-        <h2>quantos?</h2>
-        <div className="flex gap-1 text-sm">
-          <span className="text-neutrals-500 font-semibold">total</span>
-          <span>{formatCurrency.format(19.9)}</span>
+      <div className="flex justify-between px-4 py-2">
+        <div className="text-neutrals-700 font-bold flex flex-col gap-1.5">
+          <h2>quantos?</h2>
+          <div className="flex gap-1 text-sm">
+            <span className="text-neutrals-500 font-semibold">total</span>
+            <span>{formatCurrency.format(19.9)}</span>
+          </div>
         </div>
+        {count === 0 ? (
+          <Button type="button" disabled>
+            adicionar
+          </Button>
+        ) : (
+          <div className="font-bold flex gap-1.5 items-center">
+            <Button
+              variant="ghost"
+              className={cn(
+                'w-8 h-8 m-0.5 !p-0 text-teal-400',
+                count > 1 && 'border-teal-400 border rounded-full'
+              )}
+            >
+              {count > 1 ? <MinusIcon className="!w-2" /> : <TrashIcon />}
+            </Button>
+            <span className="min-w-8 text-center">{count}</span>
+            <Button
+              variant="ghost"
+              className="border-teal-400 border rounded-full text-teal-400 !p-0 w-8 h-8 m-0.5"
+            >
+              <PlusIcon className="!w-2.5" />
+            </Button>
+          </div>
+        )}
       </div>
-      <Button type="button" variant="secondary">
-        adicionar
-      </Button>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 interface CategoryProps {
   title: string;
@@ -145,10 +173,28 @@ const Category: FC<CategoryProps> = ({
       <Group className="flex flex-col gap-3">
         {options.map((option) => (
           <div key={option.title} className="flex items-center gap-2 h-8">
-            <Item
-              value={option.title.replace(' ', '-')}
-              id={option.title.replace(' ', '-')}
-            />
+            {!min && !max ? (
+              <div className="font-bold flex gap-1.5 items-center">
+                <Button
+                  variant="ghost"
+                  className="bg-neutrals-100 rounded-full text-neutrals-400 !p-0 w-6 h-6 m-0.5"
+                >
+                  <MinusIcon className="!w-2" />
+                </Button>
+                <span className="min-w-8 text-center">0</span>
+                <Button
+                  variant="ghost"
+                  className="border-teal-400 border rounded-full text-teal-400 !p-0 w-6 h-6 m-0.5"
+                >
+                  <PlusIcon className="!w-2" />
+                </Button>
+              </div>
+            ) : (
+              <Item
+                value={option.title.replace(' ', '-')}
+                id={option.title.replace(' ', '-')}
+              />
+            )}
             <Label
               htmlFor={option.title.replace(' ', '-')}
               className="flex items-center gap-1 w-full text-neutrals-500"
@@ -179,18 +225,23 @@ const Category: FC<CategoryProps> = ({
   );
 };
 
-const ItemPage: NextPage = () => (
-  <>
-    <Info />
-    {categories.map((category) => (
-      <Category key={category.title} {...category} />
-    ))}
-    <div className="p-4">
-      <Textarea
-        placeholder={`alguma observação do item? • opcional\nex: tirar algum ingrediente, ponto do prato`}
-      />
-    </div>
-  </>
-);
+const ItemPage: NextPage = () => {
+  const count: number = 1;
+
+  return (
+    <>
+      <Info />
+      {categories.map((category) => (
+        <Category key={category.title} {...category} />
+      ))}
+      <div className="flex flex-col gap-4 p-4">
+        <Textarea
+          placeholder={`alguma observação do item? • opcional\nex: tirar algum ingrediente, ponto do prato`}
+        />
+        {count > 0 && <Button>ver ticket</Button>}
+      </div>
+    </>
+  );
+};
 
 export default ItemPage;
