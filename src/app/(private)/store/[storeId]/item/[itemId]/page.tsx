@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Button } from '@/components/button/button';
 import { Checkbox } from '@/components/checkbox/checkbox';
@@ -16,6 +17,7 @@ import {
 } from '@/components/radio-group/radio-group';
 import { Textarea } from '@/components/textarea/textarea';
 import { cn } from '@/lib/tailwind/utils';
+import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
 const Info: FC = () => {
@@ -238,7 +240,11 @@ const ItemPage: NextPage = () => {
         <Textarea
           placeholder={`alguma observação do item? • opcional\nex: tirar algum ingrediente, ponto do prato`}
         />
-        {count > 0 && <Button>ver ticket</Button>}
+        {count > 0 && (
+          <Button asChild>
+            <Link href={routes.ticket()}>ver ticket</Link>
+          </Button>
+        )}
       </div>
     </>
   );

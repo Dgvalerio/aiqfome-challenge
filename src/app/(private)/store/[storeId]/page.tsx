@@ -19,6 +19,7 @@ import { SpicyIcon } from '@/components/icon/spicy';
 import { StarIcon } from '@/components/icon/star';
 import { VeganIcon } from '@/components/icon/vegan';
 import { cn } from '@/lib/tailwind/utils';
+import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
 interface MenuSubItemProps {
@@ -104,7 +105,11 @@ const MenuItem: FC<{
     <AccordionContent>
       <div className="flex flex-col px-4 pb-4 pt-2 gap-6">
         {items.map((item, index) => (
-          <Link href="/store/7/item/7" key={index} className="flex gap-4">
+          <Link
+            href={routes.store.item(7, 7)}
+            key={index}
+            className="flex gap-4"
+          >
             <div className="flex-1">
               <div className="font-semibold flex gap-1 text-sm text-neutrals-900 items-center">
                 {item.name} {item.isSpicy && <SpicyIcon />}

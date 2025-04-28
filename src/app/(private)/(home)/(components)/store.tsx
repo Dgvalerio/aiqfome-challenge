@@ -7,6 +7,7 @@ import { AiqentregaIcon } from '@/components/icon/aiqentrega';
 import { DeliveryIcon } from '@/components/icon/delivery';
 import { StarIcon } from '@/components/icon/star';
 import { cn } from '@/lib/tailwind/utils';
+import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
 export interface StoreProps {
@@ -25,7 +26,7 @@ export const Store: FC<StoreProps> = ({
   isOpened = true,
 }) => (
   <Link
-    href="/store/7"
+    href={routes.store.get(7)}
     className="bg-neutrals-50 flex font-bold rounded-xl items-center"
   >
     <Image
