@@ -18,7 +18,7 @@ const AccordionItem: FC<ComponentProps<typeof AccordionPrimitive.Item>> = ({
   <AccordionPrimitive.Item
     data-slot="accordion-item"
     className={cn(
-      'border-b-4 pb-1 mb-1 border-neutrals-100 last:border-b-0',
+      'border-neutrals-100 mb-1 border-b-4 pb-1 last:border-b-0',
       className
     )}
     {...props}
@@ -32,13 +32,13 @@ const AccordionTrigger: FC<
     <AccordionPrimitive.Trigger
       data-slot="accordion-trigger"
       className={cn(
-        'focus-visible:border-ring bg-neutrals-0 focus-visible:ring-ring/50 flex font-bold flex-1 items-start gap-1 rounded-md py-3 px-4 text-left transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
+        'focus-visible:border-ring bg-neutrals-0 focus-visible:ring-ring/50 flex flex-1 items-start gap-1 rounded-md px-4 py-3 text-left font-bold transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
         className
       )}
       {...props}
     >
       {children}
-      <ChevronDownIcon className="text-neutrals-500 ml-auto pointer-events-none shrink-0 translate-y-0.5 transition-transform duration-200" />
+      <ChevronDownIcon className="text-neutrals-500 pointer-events-none ml-auto shrink-0 translate-y-0.5 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 );

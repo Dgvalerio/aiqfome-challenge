@@ -27,7 +27,7 @@ export const Store: FC<StoreProps> = ({
 }) => (
   <Link
     href={routes.store.get(7)}
-    className="bg-neutrals-50 flex font-bold rounded-xl items-center"
+    className="bg-neutrals-50 flex items-center rounded-xl font-bold"
   >
     <Image
       src={image}
@@ -38,7 +38,7 @@ export const Store: FC<StoreProps> = ({
     />
     <div className="flex flex-col p-3">
       <span className="text-neutrals-700">{name}</span>
-      <div className="flex items-center text-sm gap-1">
+      <div className="flex items-center gap-1 text-sm">
         <div className="flex items-center gap-[2px]">
           {shipping > 0 ? (
             <>

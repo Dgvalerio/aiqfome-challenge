@@ -33,7 +33,7 @@ interface MenuSubItemProps {
 }
 
 const Info: FC = () => (
-  <section className="py-6 px-4 flex flex-col gap-1.5">
+  <section className="flex flex-col gap-1.5 px-4 py-6">
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <Image
@@ -44,18 +44,18 @@ const Info: FC = () => (
           priority
           className={cn('rounded-xl')}
         />
-        <h1 className="font-extrabold text-xl">Matsuri Concept</h1>
+        <h1 className="text-xl font-extrabold">Matsuri Concept</h1>
       </div>
-      <div className="flex gap-3 items-center">
+      <div className="flex items-center gap-3">
         <ShareIcon />
         <SaveIcon />
-        <div className="flex font-bold text-xs ml-auto gap-1 items-center text-teal-400 px-0.5 py-1">
+        <div className="ml-auto flex items-center gap-1 px-0.5 py-1 text-xs font-bold text-teal-400">
           mais infos
           <ChevronRightIcon />
         </div>
       </div>
     </div>
-    <div className="font-bold items-start flex flex-col gap-1 text-xs text-neutrals-500">
+    <div className="text-neutrals-500 flex flex-col items-start gap-1 text-xs font-bold">
       <div className="flex items-center gap-1.5">
         <div className="flex items-center gap-1 text-purple-500">
           <DeliveryIcon />
@@ -67,7 +67,7 @@ const Info: FC = () => (
         <span className="text-neutrals-400">•</span>
         5.2km
       </div>
-      <div className="bg-teal-50 text-teal-600 py-1.5 px-2 rounded w-auto">
+      <div className="w-auto rounded bg-teal-50 px-2 py-1.5 text-teal-600">
         entrega grátis acima de R$ 35,00
       </div>
       <div className="flex items-center gap-1.5">
@@ -91,19 +91,19 @@ const MenuItem: FC<{
 }> = ({ id, title, details, items, showCurrency }) => (
   <AccordionItem value={id}>
     <AccordionTrigger>
-      <div className="flex-col flex gap-1">
+      <div className="flex flex-col gap-1">
         <div className="flex gap-1">
           {title} {showCurrency && <CurrencyIcon />}
         </div>
         {details && (
-          <div className="text-xs font-semibold text-neutrals-500">
+          <div className="text-neutrals-500 text-xs font-semibold">
             {details}
           </div>
         )}
       </div>
     </AccordionTrigger>
     <AccordionContent>
-      <div className="flex flex-col px-4 pb-4 pt-2 gap-6">
+      <div className="flex flex-col gap-6 px-4 pt-2 pb-4">
         {items.map((item, index) => (
           <Link
             href={routes.store.item(7, 7)}
@@ -111,12 +111,12 @@ const MenuItem: FC<{
             className="flex gap-4"
           >
             <div className="flex-1">
-              <div className="font-semibold flex gap-1 text-sm text-neutrals-900 items-center">
+              <div className="text-neutrals-900 flex items-center gap-1 text-sm font-semibold">
                 {item.name} {item.isSpicy && <SpicyIcon />}
                 {item.isVegan && <VeganIcon />}
               </div>
               <div
-                className="text-xs text-neutrals-500 line-clamp-2"
+                className="text-neutrals-500 line-clamp-2 text-xs"
                 title={item.description}
               >
                 {item.description}
@@ -124,18 +124,18 @@ const MenuItem: FC<{
             </div>
             <div className="text-right">
               {item.originalValue && (
-                <div className="font-bold text-xs line-through text-neutrals-500">
+                <div className="text-neutrals-500 text-xs font-bold line-through">
                   {formatCurrency.format(item.originalValue)}
                 </div>
               )}
               {item.isInitial && (
-                <div className="font-bold text-xs text-neutrals-500">
+                <div className="text-neutrals-500 text-xs font-bold">
                   a partir de
                 </div>
               )}
               <div
                 className={cn(
-                  'font-bold text-sm flex gap-0.5 items-center',
+                  'flex items-center gap-0.5 text-sm font-bold',
                   item.originalValue ? 'text-green-500' : 'text-purple-500'
                 )}
               >

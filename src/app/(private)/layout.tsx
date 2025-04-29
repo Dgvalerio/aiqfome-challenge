@@ -8,7 +8,7 @@ import { Header } from '@/components/header/header';
 const PrivateLayout: NextPage<PropsWithChildren> = ({ children }) => (
   <>
     <Header />
-    <main className="flex flex-col flex-1">{children}</main>
+    <main className="flex flex-1 flex-col">{children}</main>
     <Footer />
   </>
 );

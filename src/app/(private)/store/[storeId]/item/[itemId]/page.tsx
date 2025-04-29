@@ -24,7 +24,7 @@ const Info: FC = () => {
   const count: number = 2;
 
   return (
-    <section className="flex flex-col gap-4 border-b-4 pb-4 border-neutrals-100">
+    <section className="border-neutrals-100 flex flex-col gap-4 border-b-4 pb-4">
       <Image
         src="https://picsum.photos/390/195"
         width={390}
@@ -32,9 +32,9 @@ const Info: FC = () => {
         alt="Ceviche de salmão"
         priority
       />
-      <div className="font-extrabold flex flex-col px-4 gap-1.5 text-xs text-neutrals-500">
-        <h1 className="text-xl text-neutrals-700">Ceviche de salmão</h1>
-        <div className="flex text-sm items-center gap-2">
+      <div className="text-neutrals-500 flex flex-col gap-1.5 px-4 text-xs font-extrabold">
+        <h1 className="text-neutrals-700 text-xl">Ceviche de salmão</h1>
+        <div className="flex items-center gap-2 text-sm">
           a partir de
           <span className="text-lg text-purple-500">
             {formatCurrency.format(19.9)}
@@ -45,7 +45,7 @@ const Info: FC = () => {
         </span>
       </div>
       <div className="flex justify-between px-4 py-2">
-        <div className="text-neutrals-700 font-bold flex flex-col gap-1.5">
+        <div className="text-neutrals-700 flex flex-col gap-1.5 font-bold">
           <h2>quantos?</h2>
           <div className="flex gap-1 text-sm">
             <span className="text-neutrals-500 font-semibold">total</span>
@@ -57,12 +57,12 @@ const Info: FC = () => {
             adicionar
           </Button>
         ) : (
-          <div className="font-bold flex gap-1.5 items-center">
+          <div className="flex items-center gap-1.5 font-bold">
             <Button
               variant="ghost"
               className={cn(
-                'w-8 h-8 m-0.5 !p-0 text-teal-400',
-                count > 1 && 'border-teal-400 border rounded-full'
+                'm-0.5 h-8 w-8 !p-0 text-teal-400',
+                count > 1 && 'rounded-full border border-teal-400'
               )}
             >
               {count > 1 ? <MinusIcon className="!w-2" /> : <TrashIcon />}
@@ -70,7 +70,7 @@ const Info: FC = () => {
             <span className="min-w-8 text-center">{count}</span>
             <Button
               variant="ghost"
-              className="border-teal-400 border rounded-full text-teal-400 !p-0 w-8 h-8 m-0.5"
+              className="m-0.5 h-8 w-8 rounded-full border border-teal-400 !p-0 text-teal-400"
             >
               <PlusIcon className="!w-2.5" />
             </Button>
@@ -160,33 +160,33 @@ const Category: FC<CategoryProps> = ({
   if (!min && !max) choiceText = `escolha quantos quiser`;
 
   return (
-    <section className="p-4 flex flex-col gap-4 border-b-4 border-neutrals-100">
-      <div className="font-bold flex gap-4 justify-between items-center">
+    <section className="border-neutrals-100 flex flex-col gap-4 border-b-4 p-4">
+      <div className="flex items-center justify-between gap-4 font-bold">
         <div className="flex flex-col gap-0.5">
           <h3>{title}</h3>
-          <h4 className="text-xs text-neutrals-500">{choiceText}</h4>
+          <h4 className="text-neutrals-500 text-xs">{choiceText}</h4>
         </div>
         {isRequired && (
-          <span className="text-xs py-1.5 px-2 bg-neutrals-700 text-neutrals-0 rounded">
+          <span className="bg-neutrals-700 text-neutrals-0 rounded px-2 py-1.5 text-xs">
             obrigatório
           </span>
         )}
       </div>
       <Group className="flex flex-col gap-3">
         {options.map((option) => (
-          <div key={option.title} className="flex items-center gap-2 h-8">
+          <div key={option.title} className="flex h-8 items-center gap-2">
             {!min && !max ? (
-              <div className="font-bold flex gap-1.5 items-center">
+              <div className="flex items-center gap-1.5 font-bold">
                 <Button
                   variant="ghost"
-                  className="bg-neutrals-100 rounded-full text-neutrals-400 !p-0 w-6 h-6 m-0.5"
+                  className="bg-neutrals-100 text-neutrals-400 m-0.5 h-6 w-6 rounded-full !p-0"
                 >
                   <MinusIcon className="!w-2" />
                 </Button>
                 <span className="min-w-8 text-center">0</span>
                 <Button
                   variant="ghost"
-                  className="border-teal-400 border rounded-full text-teal-400 !p-0 w-6 h-6 m-0.5"
+                  className="m-0.5 h-6 w-6 rounded-full border border-teal-400 !p-0 text-teal-400"
                 >
                   <PlusIcon className="!w-2" />
                 </Button>
@@ -199,12 +199,12 @@ const Category: FC<CategoryProps> = ({
             )}
             <Label
               htmlFor={option.title.replace(' ', '-')}
-              className="flex items-center gap-1 w-full text-neutrals-500"
+              className="text-neutrals-500 flex w-full items-center gap-1"
             >
               {option.originalValue && <CurrencyIcon />}
               <span className="mr-auto">{option.title}</span>
               {option.originalValue && (
-                <span className="font-bold text-xs">
+                <span className="text-xs font-bold">
                   de {formatCurrency.format(option.originalValue)} por
                 </span>
               )}
