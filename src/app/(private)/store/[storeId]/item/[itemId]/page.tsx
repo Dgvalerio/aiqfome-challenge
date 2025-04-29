@@ -1,68 +1,13 @@
-import { FC } from 'react';
-
 import { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 
+import { ItemCategory } from '@/app/(private)/store/[storeId]/item/[itemId]/(components)/category';
+import { ItemInfo } from '@/app/(private)/store/[storeId]/item/[itemId]/(components)/info';
 import { Button } from '@/components/button/button';
-import { Checkbox } from '@/components/checkbox/checkbox';
-import { CurrencyIcon } from '@/components/icon/currency';
-import { Label } from '@/components/label/label';
-import { QuantityInput } from '@/components/quantity-input/quantity-input';
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from '@/components/radio-group/radio-group';
 import { Textarea } from '@/components/textarea/textarea';
-import { cn } from '@/lib/tailwind/utils';
 import { routes } from '@/utils/constants/routes';
-import { formatCurrency } from '@/utils/functions/format-currency';
 
-const Info: FC = () => {
-  const count: number = 2;
-
-  return (
-    <section className="border-neutrals-100 flex flex-col gap-4 border-b-4 pb-4">
-      <Image
-        src="https://picsum.photos/390/195"
-        width={390}
-        height={195}
-        alt="Ceviche de salmão"
-        priority
-      />
-      <div className="text-neutrals-500 flex flex-col gap-1.5 px-4 text-xs font-extrabold">
-        <h1 className="text-neutrals-700 text-xl">Ceviche de salmão</h1>
-        <div className="flex items-center gap-2 text-sm">
-          a partir de
-          <span className="text-lg text-purple-500">
-            {formatCurrency.format(19.9)}
-          </span>
-        </div>
-        <span className="font-semibold">
-          salmão temperado com limão, cebola e pimenta
-        </span>
-      </div>
-      <div className="flex justify-between px-4 py-2">
-        <div className="text-neutrals-700 flex flex-col gap-1.5 font-bold">
-          <h2>quantos?</h2>
-          <div className="flex gap-1 text-sm">
-            <span className="text-neutrals-500 font-semibold">total</span>
-            <span>{formatCurrency.format(19.9)}</span>
-          </div>
-        </div>
-        {count === 0 ? (
-          <Button type="button" disabled>
-            adicionar
-          </Button>
-        ) : (
-          <QuantityInput value={0} size="lg" />
-        )}
-      </div>
-    </section>
-  );
-};
-
-interface CategoryProps {
+export interface CategoryProps {
   title: string;
   isRequired?: boolean;
   min?: number;
@@ -122,86 +67,14 @@ const categories: CategoryProps[] = [
   },
 ];
 
-const Category: FC<CategoryProps> = ({
-  title,
-  isRequired,
-  options,
-  min,
-  max,
-}) => {
-  const Group = max && max > 1 ? 'div' : RadioGroup;
-  const Item = max && max > 1 ? Checkbox : RadioGroupItem;
-
-  let choiceText = 'escolha';
-
-  if (min) choiceText += ` de ${min}`;
-  if (max) choiceText += ` até ${max}`;
-
-  if (min === max) choiceText = `escolha ${min}`;
-  if (!min && !max) choiceText = `escolha quantos quiser`;
-
-  return (
-    <section className="border-neutrals-100 flex flex-col gap-4 border-b-4 p-4">
-      <div className="flex items-center justify-between gap-4 font-bold">
-        <div className="flex flex-col gap-0.5">
-          <h3>{title}</h3>
-          <h4 className="text-neutrals-500 text-xs">{choiceText}</h4>
-        </div>
-        {isRequired && (
-          <span className="bg-neutrals-700 text-neutrals-0 rounded px-2 py-1.5 text-xs">
-            obrigatório
-          </span>
-        )}
-      </div>
-      <Group className="flex flex-col gap-3">
-        {options.map((option) => (
-          <div key={option.title} className="flex h-8 items-center gap-2">
-            {!min && !max ? (
-              <QuantityInput value={0} />
-            ) : (
-              <Item
-                value={option.title.replace(' ', '-')}
-                id={option.title.replace(' ', '-')}
-              />
-            )}
-            <Label
-              htmlFor={option.title.replace(' ', '-')}
-              className="text-neutrals-500 flex w-full items-center gap-1"
-            >
-              {option.originalValue && <CurrencyIcon />}
-              <span className="mr-auto">{option.title}</span>
-              {option.originalValue && (
-                <span className="text-xs font-bold">
-                  de {formatCurrency.format(option.originalValue)} por
-                </span>
-              )}
-              {option.value && (
-                <span
-                  className={cn(
-                    'font-bold',
-                    option.originalValue ? 'text-green-500' : 'text-purple-500'
-                  )}
-                >
-                  {!min && '+'}
-                  {formatCurrency.format(option.value)}
-                </span>
-              )}
-            </Label>
-          </div>
-        ))}
-      </Group>
-    </section>
-  );
-};
-
 const ItemPage: NextPage = () => {
   const count: number = 1;
 
   return (
     <>
-      <Info />
+      <ItemInfo />
       {categories.map((category) => (
-        <Category key={category.title} {...category} />
+        <ItemCategory key={category.title} {...category} />
       ))}
       <div className="mb-11 flex flex-col gap-4 p-4">
         <Textarea
