@@ -7,10 +7,8 @@ import Link from 'next/link';
 import { Button } from '@/components/button/button';
 import { Checkbox } from '@/components/checkbox/checkbox';
 import { CurrencyIcon } from '@/components/icon/currency';
-import { MinusIcon } from '@/components/icon/minus';
-import { PlusIcon } from '@/components/icon/plus';
-import { TrashIcon } from '@/components/icon/trash';
 import { Label } from '@/components/label/label';
+import { QuantityInput } from '@/components/quantity-input/quantity-input';
 import {
   RadioGroup,
   RadioGroupItem,
@@ -57,24 +55,7 @@ const Info: FC = () => {
             adicionar
           </Button>
         ) : (
-          <div className="flex items-center gap-1.5 font-bold">
-            <Button
-              variant="ghost"
-              className={cn(
-                'm-0.5 h-8 w-8 !p-0 text-teal-400',
-                count > 1 && 'rounded-full border border-teal-400'
-              )}
-            >
-              {count > 1 ? <MinusIcon className="!w-2" /> : <TrashIcon />}
-            </Button>
-            <span className="min-w-8 text-center">{count}</span>
-            <Button
-              variant="ghost"
-              className="m-0.5 h-8 w-8 rounded-full border border-teal-400 !p-0 text-teal-400"
-            >
-              <PlusIcon className="!w-2.5" />
-            </Button>
-          </div>
+          <QuantityInput value={0} size="lg" />
         )}
       </div>
     </section>
@@ -176,21 +157,7 @@ const Category: FC<CategoryProps> = ({
         {options.map((option) => (
           <div key={option.title} className="flex h-8 items-center gap-2">
             {!min && !max ? (
-              <div className="flex items-center gap-1.5 font-bold">
-                <Button
-                  variant="ghost"
-                  className="bg-neutrals-100 text-neutrals-400 m-0.5 h-6 w-6 rounded-full !p-0"
-                >
-                  <MinusIcon className="!w-2" />
-                </Button>
-                <span className="min-w-8 text-center">0</span>
-                <Button
-                  variant="ghost"
-                  className="m-0.5 h-6 w-6 rounded-full border border-teal-400 !p-0 text-teal-400"
-                >
-                  <PlusIcon className="!w-2" />
-                </Button>
-              </div>
+              <QuantityInput value={0} />
             ) : (
               <Item
                 value={option.title.replace(' ', '-')}
@@ -236,14 +203,16 @@ const ItemPage: NextPage = () => {
       {categories.map((category) => (
         <Category key={category.title} {...category} />
       ))}
-      <div className="flex flex-col gap-4 p-4">
+      <div className="mb-11 flex flex-col gap-4 p-4">
         <Textarea
           placeholder={`alguma observação do item? • opcional\nex: tirar algum ingrediente, ponto do prato`}
         />
         {count > 0 && (
-          <Button asChild>
-            <Link href={routes.ticket()}>ver ticket</Link>
-          </Button>
+          <div className="fixed right-0 bottom-0 left-0 px-6 py-4">
+            <Button asChild className="w-full" size="lg">
+              <Link href={routes.ticket()}>ver ticket</Link>
+            </Button>
+          </div>
         )}
       </div>
     </>

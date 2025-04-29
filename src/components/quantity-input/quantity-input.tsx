@@ -7,7 +7,7 @@ import { MinusIcon } from '@/components/icon/minus';
 import { PlusIcon } from '@/components/icon/plus';
 import { TrashIcon } from '@/components/icon/trash';
 
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 const inputVariants = cva(
   [
@@ -55,7 +55,11 @@ const inputVariants = cva(
   }
 );
 
-export const QuantityInput: FC<{ value: number }> = ({ value }) => {
+interface QuantityInputProps extends VariantProps<typeof inputVariants> {
+  value: number;
+}
+
+export const QuantityInput: FC<QuantityInputProps> = ({ value, size }) => {
   const [count, setCount] = useState(value || 0);
 
   const handleAdd = (): void => setCount((prev) => prev + 1);
@@ -73,6 +77,7 @@ export const QuantityInput: FC<{ value: number }> = ({ value }) => {
         variant="ghost"
         className={inputVariants({
           variant: count === 1 ? 'borderless' : 'default',
+          size,
         })}
         onClick={handleRemove}
         disabled={count === 0}
@@ -82,7 +87,7 @@ export const QuantityInput: FC<{ value: number }> = ({ value }) => {
       <span className="min-w-8 text-center">{count}</span>
       <Button
         variant="ghost"
-        className={inputVariants({ size: 'md' })}
+        className={inputVariants({ size })}
         onClick={handleAdd}
       >
         <PlusIcon />
