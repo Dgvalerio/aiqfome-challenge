@@ -4,132 +4,59 @@ import Image from 'next/image';
 import { ClosedStores } from '@/app/(private)/(home)/(components)/closed';
 import { OpenedStores } from '@/app/(private)/(home)/(components)/opened';
 import { SearchInput } from '@/app/(private)/(home)/(components)/search-input';
-import { StoreProps } from '@/app/(private)/(home)/(components)/store';
+import { ToastWarning } from '@/components/sonner/toast';
+import { ResponseAPI } from '@/types/response-api';
+import { Store } from '@/types/store';
 
-const stores: StoreProps[] = [
-  {
-    image: 'https://picsum.photos/272?random=1',
-    name: 'Matsuri Concept',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=2',
-    name: 'Subway - Avenida center',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=3',
-    name: 'Burger King - Colombo',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=4',
-    name: 'Burger King - Colombo',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=5',
-    name: 'McDonald’s - Novo Centro',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=6',
-    name: 'Subway - Avenida center',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=7',
-    name: 'McDonald’s - Novo Centro',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=8',
-    name: 'Matsuri Concept',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=9',
-    name: 'Burger King - Colombo',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=10',
-    name: 'Burger King - Colombo',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=11',
-    name: 'McDonald’s - Novo Centro',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=12',
-    name: 'Subway - Avenida center',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=13',
-    name: 'McDonald’s - Novo Centro',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=14',
-    name: 'Matsuri Concept',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=15',
-    name: 'Burger King - Colombo',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=16',
-    name: 'Matsuri Concept',
-    shipping: 0,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=17',
-    name: 'Subway - Avenida center',
-    shipping: 6,
-    rating: 4.7,
-  },
-  {
-    image: 'https://picsum.photos/272?random=18',
-    name: 'McDonald’s - Novo Centro',
-    shipping: 0,
-    rating: 4.7,
-  },
-];
+import { isAfter, isBefore, set } from 'date-fns';
 
-const HomePage: NextPage = () => (
-  <>
-    <SearchInput className="pt-0" />
-    <Image
-      priority
-      width={390}
-      height={130}
-      src="/banner.png"
-      alt="Rango barato no dia das crianças! Peça com até 50% OFF"
-    />
-    <OpenedStores stores={stores} />
-    <ClosedStores stores={stores} />
-  </>
-);
+const HomePage: NextPage = async () => {
+  const response = await fetch('http://localhost:3001/api/store');
+
+  const { success, data, messages }: ResponseAPI<Store[]> =
+    await response.json();
+
+  const opened: Store[] = [];
+  const closed: Store[] = [];
+
+  data.forEach((store) => {
+    const now = new Date();
+    const [openH, openM] = store.openTime.split(':').map(Number);
+    const [closeH, closeM] = store.closeTime.split(':').map(Number);
+
+    const openDate = set(now, {
+      hours: openH,
+      minutes: openM,
+      seconds: 0,
+      milliseconds: 0,
+    });
+    const closeDate = set(now, {
+      hours: closeH,
+      minutes: closeM,
+      seconds: 0,
+      milliseconds: 0,
+    });
+
+    return isAfter(now, openDate) && isBefore(now, closeDate)
+      ? opened.push(store)
+      : closed.push(store);
+  });
+
+  return (
+    <>
+      {!success && <ToastWarning messages={messages} />}
+      <SearchInput className="pt-0" />
+      <Image
+        priority
+        width={390}
+        height={130}
+        src="/banner.png"
+        alt="Rango barato no dia das crianças! Peça com até 50% OFF"
+      />
+      <OpenedStores stores={opened} />
+      <ClosedStores stores={closed} />
+    </>
+  );
+};
 
 export default HomePage;
