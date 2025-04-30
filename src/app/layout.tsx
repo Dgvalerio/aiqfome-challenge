@@ -4,6 +4,7 @@ import type { Metadata, NextPage } from 'next';
 import { Nunito } from 'next/font/google';
 
 import '@/styles/globals.css';
+import { Toaster } from '@/components/sonner/sonner';
 
 const fontSans = Nunito({
   variable: '--font-nunito-sans',
@@ -21,6 +22,7 @@ const RootLayout: NextPage<PropsWithChildren> = ({ children }) => (
       className={`${fontSans.className} bg-background text-foreground flex min-h-screen flex-col antialiased`}
     >
       {children}
+      <Toaster />
     </body>
   </html>
 );
