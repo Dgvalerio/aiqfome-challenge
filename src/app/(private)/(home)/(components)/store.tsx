@@ -7,18 +7,16 @@ import { AiqentregaIcon } from '@/components/icon/aiqentrega';
 import { DeliveryIcon } from '@/components/icon/delivery';
 import { StarIcon } from '@/components/icon/star';
 import { cn } from '@/lib/tailwind/utils';
+import { Store as StoreEntity } from '@/types/store';
 import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
-export interface StoreProps {
-  image: string;
-  name: string;
-  shipping: number;
-  rating: number;
+export interface StoreProps extends StoreEntity {
   isOpened?: boolean;
 }
 
 export const Store: FC<StoreProps> = ({
+  id,
   image,
   name,
   shipping,
@@ -26,7 +24,7 @@ export const Store: FC<StoreProps> = ({
   isOpened = true,
 }) => (
   <Link
-    href={routes.store.get(7)}
+    href={routes.store.get(id)}
     className="bg-neutrals-50 flex items-center rounded-xl font-bold"
   >
     <Image
@@ -39,7 +37,7 @@ export const Store: FC<StoreProps> = ({
     <div className="flex flex-col p-3">
       <span className="text-neutrals-700">{name}</span>
       <div className="flex items-center gap-1 text-sm">
-        <div className="flex items-center gap-[2px]">
+        <div className="flex items-center gap-0.5">
           {shipping > 0 ? (
             <>
               <AiqentregaIcon />
@@ -55,7 +53,7 @@ export const Store: FC<StoreProps> = ({
           )}
         </div>
         <span className="text-neutral-400">•</span>
-        <div className="flex items-center gap-[2px]">
+        <div className="flex items-center gap-0.5">
           <StarIcon />
           <span className="text-neutrals-500">{rating}</span>
         </div>

@@ -11,7 +11,7 @@ import { Store } from '@/types/store';
 import { isAfter, isBefore, set } from 'date-fns';
 
 const HomePage: NextPage = async () => {
-  const response = await fetch('http://localhost:3001/api/store');
+  const response = await fetch('http://localhost:3001/api/stores');
 
   const { success, data, messages }: ResponseAPI<Store[]> =
     await response.json();

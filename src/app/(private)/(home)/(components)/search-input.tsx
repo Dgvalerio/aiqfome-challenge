@@ -4,6 +4,8 @@ import { SearchIcon } from '@/components/icon/search';
 import { Input } from '@/components/input/input';
 import { cn } from '@/lib/tailwind/utils';
 
+// todo[2025-04-30]: implementar search
+
 export const SearchInput: FC<ComponentProps<'div'>> = ({
   className,
   ...props

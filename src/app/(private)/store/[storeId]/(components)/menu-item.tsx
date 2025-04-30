@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import Link from 'next/link';
 
-import { MenuSubItemProps } from '@/app/(private)/store/[storeId]/page';
 import {
   AccordionContent,
   AccordionItem,
@@ -12,21 +11,19 @@ import { CurrencyIcon } from '@/components/icon/currency';
 import { SpicyIcon } from '@/components/icon/spicy';
 import { VeganIcon } from '@/components/icon/vegan';
 import { cn } from '@/lib/tailwind/utils';
+import { Store } from '@/types/store';
 import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
-export const StoreMenuItem: FC<{
-  id: string;
-  title: string;
-  details?: string;
-  items: MenuSubItemProps[];
-  showCurrency?: boolean;
-}> = ({ id, title, details, items, showCurrency }) => (
+export const StoreMenuItem: FC<
+  { storeId: Store['id'] } & Store['sections'][number]
+> = ({ storeId, id, title, details, items }) => (
   <AccordionItem value={id}>
     <AccordionTrigger>
       <div className="flex flex-col gap-1">
         <div className="flex gap-1">
-          {title} {showCurrency && <CurrencyIcon />}
+          {title}{' '}
+          {items.some((item) => !!item.originalValue) && <CurrencyIcon />}
         </div>
         {details && (
           <div className="text-neutrals-500 text-xs font-semibold">
@@ -39,7 +36,7 @@ export const StoreMenuItem: FC<{
       <div className="flex flex-col gap-6 px-4 pt-2 pb-4">
         {items.map((item, index) => (
           <Link
-            href={routes.store.item(7, 7)}
+            href={routes.store.item(storeId, id)}
             key={index}
             className="flex gap-4"
           >

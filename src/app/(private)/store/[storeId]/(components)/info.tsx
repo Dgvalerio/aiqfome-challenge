@@ -7,22 +7,22 @@ import { DeliveryIcon } from '@/components/icon/delivery';
 import { SaveIcon } from '@/components/icon/save';
 import { ShareIcon } from '@/components/icon/share';
 import { StarIcon } from '@/components/icon/star';
-import { cn } from '@/lib/tailwind/utils';
+import { Store } from '@/types/store';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
-export const StoreInfo: FC = () => (
+export const StoreInfo: FC<Store> = (store) => (
   <section className="flex flex-col gap-1.5 px-4 py-6">
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <Image
-          src="https://picsum.photos/36"
+          src={store.image}
           width={36}
           height={36}
-          alt="Matsuri Concept"
+          alt={store.name}
           priority
-          className={cn('rounded-xl')}
+          className="rounded-xl"
         />
-        <h1 className="text-xl font-extrabold">Matsuri Concept</h1>
+        <h1 className="text-xl font-extrabold">{store.name}</h1>
       </div>
       <div className="flex items-center gap-3">
         <ShareIcon />
@@ -37,24 +37,31 @@ export const StoreInfo: FC = () => (
       <div className="flex items-center gap-1.5">
         <div className="flex items-center gap-1 text-purple-500">
           <DeliveryIcon />
-          <span className="text-sm">{formatCurrency.format(4.99)}</span>
+          <span className="text-sm">
+            {formatCurrency.format(store.shipping)}
+          </span>
           <ChevronRightIcon />
         </div>
         <span className="text-neutrals-400">•</span>
+        {/* todo[2025-04-30]: implementável com serviço de mapa */}
         hoje, 30-40 min
         <span className="text-neutrals-400">•</span>
+        {/* todo[2025-04-30]: implementável com serviço de mapa */}
         5.2km
       </div>
       <div className="w-auto rounded bg-teal-50 px-2 py-1.5 text-teal-600">
+        {/* todo[2025-04-30]: implementável adicionando na entidade */}
         entrega grátis acima de R$ 35,00
       </div>
       <div className="flex items-center gap-1.5">
         <div className="flex items-center gap-1">
-          <StarIcon height="16" width="16" /> 4.5 de 5 <ChevronRightIcon />
+          <StarIcon height="16" width="16" /> {store.rating} de 5
+          <ChevronRightIcon />
         </div>
         <span className="text-neutrals-400">•</span>
-        <span className="text-green-500">fecha às 20:00</span>
+        <span className="text-green-500">fecha às {store.closeTime}</span>
       </div>
+      {/* todo[2025-04-30]: implementável adicionando na entidade */}
       pedido mínimo: {formatCurrency.format(15)}
     </div>
   </section>
