@@ -11,8 +11,8 @@ interface StorePageProps {
   searchParams: Promise<object>;
 }
 
-const StorePage: NextPage<StorePageProps> = async (props) => {
-  const { storeId } = await props.params;
+const StorePage: NextPage<StorePageProps> = async ({ params }) => {
+  const { storeId } = await params;
 
   const response = await fetch(`http://localhost:3001/api/stores/${storeId}`);
 

@@ -7,7 +7,7 @@ import { Store } from '@/types/store';
 export const StoreMenu: FC<Store> = (store) => (
   <Accordion type="single" collapsible>
     {store.sections.map((section) => (
-      <StoreMenuItem key={section.id} storeId={section.id} {...section} />
+      <StoreMenuItem key={section.id} storeId={store.id} {...section} />
     ))}
   </Accordion>
 );

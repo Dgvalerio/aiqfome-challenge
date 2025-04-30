@@ -5,6 +5,8 @@ import { ItemCategory } from '@/app/(private)/store/[storeId]/item/[itemId]/(com
 import { ItemInfo } from '@/app/(private)/store/[storeId]/item/[itemId]/(components)/info';
 import { Button } from '@/components/button/button';
 import { Textarea } from '@/components/textarea/textarea';
+import { Item } from '@/types/item';
+import { ResponseAPI } from '@/types/response-api';
 import { routes } from '@/utils/constants/routes';
 
 export interface CategoryProps {
@@ -67,13 +69,32 @@ const categories: CategoryProps[] = [
   },
 ];
 
-const ItemPage: NextPage = () => {
+interface ItemPageProps {
+  params: Promise<{ storeId: string; itemId: string }>;
+  searchParams: Promise<object>;
+}
+
+const ItemPage: NextPage<ItemPageProps> = async ({ params }) => {
   const count: number = 1;
+
+  const { storeId, itemId } = await params;
+
+  const response = await fetch(
+    `http://localhost:3001/api/stores/${storeId}/item/${itemId}`
+  );
+
+  const { success, data, messages }: ResponseAPI<Item> = await response.json();
+
+  console.log({ success, data, messages });
+
+  if (!data) {
+    return <h1>{messages[0]}</h1>;
+  }
 
   return (
     <>
-      <ItemInfo />
-      {categories.map((category) => (
+      <ItemInfo {...data} />
+      {data.categories.map((category) => (
         <ItemCategory key={category.title} {...category} />
       ))}
       <div className="mb-11 flex flex-col gap-4 p-4">

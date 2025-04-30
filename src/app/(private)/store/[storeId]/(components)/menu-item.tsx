@@ -36,7 +36,7 @@ export const StoreMenuItem: FC<
       <div className="flex flex-col gap-6 px-4 pt-2 pb-4">
         {items.map((item, index) => (
           <Link
-            href={routes.store.item(storeId, id)}
+            href={routes.store.item(storeId, item.id)}
             key={index}
             className="flex gap-4"
           >
