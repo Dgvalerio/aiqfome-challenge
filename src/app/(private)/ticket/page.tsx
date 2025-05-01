@@ -9,7 +9,13 @@ export interface TicketItem {
     name: string;
     value: number;
     quantity: number;
-    extras?: { label: string; content: { text: string; value?: number }[] }[];
+    extras?: {
+      label: string;
+      content: {
+        text: string;
+        value?: number;
+      }[];
+    }[];
     observation?: string;
   }[];
 }

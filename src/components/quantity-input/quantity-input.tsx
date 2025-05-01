@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/button/button';
 import { MinusIcon } from '@/components/icon/minus';
@@ -57,19 +57,24 @@ const inputVariants = cva(
 
 interface QuantityInputProps extends VariantProps<typeof inputVariants> {
   value: number;
+  onChange?: (value: number) => void;
 }
 
-export const QuantityInput: FC<QuantityInputProps> = ({ value, size }) => {
+export const QuantityInput: FC<QuantityInputProps> = ({
+  value,
+  onChange,
+  size,
+}) => {
   const [count, setCount] = useState(value || 0);
 
   const handleAdd = (): void => setCount((prev) => prev + 1);
 
   const handleRemove = (): void =>
-    setCount((prev) => {
-      if (prev === 0) return prev;
+    setCount((prev) => (prev === 0 ? prev : prev - 1));
 
-      return prev - 1;
-    });
+  useEffect(() => {
+    if (onChange) onChange(count);
+  }, [count, onChange]);
 
   return (
     <div className="flex items-center gap-1.5 font-bold">
