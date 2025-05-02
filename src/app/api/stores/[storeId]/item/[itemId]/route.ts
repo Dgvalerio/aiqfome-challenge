@@ -1,10 +1,9 @@
 import { NextRequest } from 'next/server';
 
+import file from '@/app/api/db.json';
 import { Item } from '@/types/item';
 import { ResponseAPI } from '@/types/response-api';
 import { Store } from '@/types/store';
-
-import { promises as fs } from 'node:fs';
 
 export const GET = async (
   _req: NextRequest,
@@ -14,14 +13,7 @@ export const GET = async (
   const params = await props.params;
 
   try {
-    const file = await fs.readFile(
-      process.cwd() + '/src/app/api/db.json',
-      'utf8'
-    );
-
-    const data: Store[] = JSON.parse(file);
-
-    const store = data.find((store: Store) => store.id === params.storeId);
+    const store = file.find((store: Store) => store.id === params.storeId);
 
     if (!store) {
       response = {
@@ -50,6 +42,7 @@ export const GET = async (
     };
   }
 
+  // info: Está aqui para simular carregamento de uma API
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return Response.json(response);

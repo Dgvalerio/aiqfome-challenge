@@ -1,21 +1,14 @@
+import file from '@/app/api/db.json';
 import { ResponseAPI } from '@/types/response-api';
 import { Store } from '@/types/store';
-
-import { promises as fs } from 'node:fs';
 
 export const GET = async (): Promise<Response> => {
   let response: ResponseAPI<Store[]>;
 
   try {
-    const file = await fs.readFile(
-      process.cwd() + '/src/app/api/db.json',
-      'utf8'
-    );
+    const sortByRating = file.sort((a, b) => b.rating - a.rating);
 
-    const data: Store[] = JSON.parse(file);
-
-    const sortByRating = data.sort((a, b) => b.rating - a.rating);
-
+    // info: Está aqui para simular carregamento de uma API
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     response = {
