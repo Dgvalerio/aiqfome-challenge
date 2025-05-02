@@ -81,7 +81,7 @@ export const ItemForm: FC<{ store: Store; item: Item }> = ({ store, item }) => {
       store: store.name,
       items: [
         {
-          timestamp: new Date().getTime(),
+          id: `D${new Date().getTime()}`,
           name: item.name,
           unitValue: total,
           extras: data.extras

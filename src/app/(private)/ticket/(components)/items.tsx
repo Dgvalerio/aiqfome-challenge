@@ -11,12 +11,12 @@ import { routes } from '@/utils/constants/routes';
 import { formatCurrency } from '@/utils/functions/format-currency';
 
 export const TicketItems: FC = () => {
-  const { items } = useContext(TicketContext);
+  const { items, changeItemQuantity } = useContext(TicketContext);
 
   return (
     <div>
-      {items.map(({ store, items }, index) => (
-        <section key={store}>
+      {items.map(({ id, store, items }, index) => (
+        <section key={id + store}>
           <div className="flex items-center gap-2 px-4 pt-6">
             <Image
               src={`https://picsum.photos/36?random=${index + 1}`}
@@ -33,7 +33,7 @@ export const TicketItems: FC = () => {
           </div>
           {items.map((item) => (
             <div
-              key={item.timestamp}
+              key={item.id}
               className="flex flex-col gap-1.5 border-b-4 border-neutral-100 p-4 last:border-b-0"
             >
               <div className="flex justify-between gap-4 text-sm font-bold">
@@ -52,7 +52,12 @@ export const TicketItems: FC = () => {
                     <PencilIcon /> editar
                   </Link>
                 </Button>
-                <QuantityInput value={item.quantity} />
+                <QuantityInput
+                  value={item.quantity}
+                  onChange={(quantity) =>
+                    changeItemQuantity(id, item.id, quantity)
+                  }
+                />
               </div>
               {item.extras && (
                 <ul className="text-neutrals-500 flex list-inside list-disc flex-col gap-1.5 text-xs">
