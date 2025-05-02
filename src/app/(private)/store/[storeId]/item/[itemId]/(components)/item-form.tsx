@@ -1,13 +1,18 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+
+import { useRouter } from 'next/navigation';
 
 import { ItemCategory } from '@/app/(private)/store/[storeId]/item/[itemId]/(components)/category';
 import { ItemInfo } from '@/app/(private)/store/[storeId]/item/[itemId]/(components)/info';
 import { Button } from '@/components/button/button';
 import { Textarea } from '@/components/textarea/textarea';
+import { TicketContext } from '@/context/ticket';
 import { Item } from '@/types/item';
+import { Store } from '@/types/store';
+import { routes } from '@/utils/constants/routes';
 
 export interface FormItem {
   value: number;
@@ -26,7 +31,8 @@ export interface FormItem {
   observation?: string;
 }
 
-export const ItemForm: FC<{ item: Item }> = ({ item }) => {
+export const ItemForm: FC<{ store: Store; item: Item }> = ({ store, item }) => {
+  const router = useRouter();
   const form = useForm<FormItem>({
     defaultValues: {
       value: item.value,
@@ -41,44 +47,67 @@ export const ItemForm: FC<{ item: Item }> = ({ item }) => {
       })),
     },
   });
+  const ticket = useContext(TicketContext);
 
   const extras = form.watch('extras');
   const quantity = form.watch('quantity');
 
   const total: number =
     item.categories.length === 0
-      ? item.value * quantity
-      : quantity *
-        (extras
-          ? extras
-              .map((value) => {
-                if (value.radio) {
-                  const item = value.content.find(
-                    (content) => content.text === value.radio
-                  );
+      ? item.value
+      : extras
+          ?.map((value) => {
+            if (value.radio) {
+              const item = value.content.find(
+                (content) => content.text === value.radio
+              );
 
-                  return item ? item.value || 0 : 0;
-                } else {
-                  return value.content.reduce((prev, curr) => {
-                    if (curr.checked) return prev + (curr.value || 0);
-                    else if (curr.quantity && curr.quantity > 0)
-                      return prev + (curr.value || 0) * curr.quantity;
+              return item ? item.value || 0 : 0;
+            } else {
+              return value.content.reduce((prev, curr) => {
+                if (curr.checked) return prev + (curr.value || 0);
+                else if (curr.quantity && curr.quantity > 0)
+                  return prev + (curr.value || 0) * curr.quantity;
 
-                    return prev;
-                  }, 0);
-                }
-              })
-              .reduce((prev, curr) => prev + curr, 0)
-          : 0);
+                return prev;
+              }, 0);
+            }
+          })
+          .reduce((prev, curr) => prev + curr, 0) || 0;
 
   const addItemToTicket = (data: FormItem): void => {
-    console.log(data);
+    ticket.addItem({
+      id: store.id,
+      store: store.name,
+      items: [
+        {
+          timestamp: new Date().getTime(),
+          name: item.name,
+          unitValue: total,
+          extras: data.extras
+            ?.map((extra) => ({
+              ...extra,
+              content: extra.content.filter((content): boolean =>
+                extra.radio
+                  ? content.text === extra.radio
+                  : !!content.checked ||
+                    (content.quantity ? content.quantity > 0 : false)
+              ),
+            }))
+            .filter((extra) => extra.content.length > 0),
+          quantity: data.quantity,
+          observation: data.observation,
+        },
+      ],
+    });
+
+    router.push(routes.ticket());
   };
 
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(addItemToTicket)}>
-        <ItemInfo {...item} value={total} />
+        <ItemInfo {...item} value={total * quantity} />
         {item.categories.map((category, index) => (
           <ItemCategory key={category.title} index={index} {...category} />
         ))}

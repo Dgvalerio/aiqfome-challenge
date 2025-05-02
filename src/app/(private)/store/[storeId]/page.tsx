@@ -18,10 +18,8 @@ const StorePage: NextPage<StorePageProps> = async ({ params }) => {
 
   const { success, data, messages }: ResponseAPI<Store> = await response.json();
 
-  console.log({ success, data, messages });
-
   if (!data) {
-    return <h1>{messages[0]}</h1>;
+    return <h1>{messages.join(';\n')}</h1>;
   }
 
   return (
