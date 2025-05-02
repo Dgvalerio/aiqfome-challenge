@@ -1,8 +1,9 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Desafio Aiqfome - Front End
 
-## Getting Started
+### Para ver o projeto, acesse
+[Clique aqui](https://aiqfome-challenge.vercel.app/)
 
-First, run the development server:
+### Para executar o projeto localmente utilize
 
 ```bash
 npm run dev
@@ -14,23 +15,14 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000) no seu navegador e veja o resultado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Observações
+Como o teste citava que o foco era ver o conhecimento em next do candidato, tentei utilizar o mínimo de bibliotecas externas.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+E não sei se era parte do teste, mas:
+1. As cores não estão centralizadas em um style guide, seria interessante centralizá-las no figma.
+2. A biblioteca de ícones a ser utilizada não foi informada, e não encontrei facilmente uma semelhante, então estou lidando com cada ícone como svgs individuais.
+3. Na home, a listagem de lojas não está padronizada, alguns itens tem a imagem com bordas arredondadas e outros não, além disso, alguns contém um separador entre o valor de frente e a avaliação e outros não, e como não foi possível ver um padrão, segui conforme o app do aiqfome para android, com bordas arredondadas na imagem e separador.
+4. Também na home, após o input e antes dos itens tem um espaço de 1px que eu vi que não se repete nas outras páginas, então optei por retirar.
+5. Na página de ticket o valor dos extras, aparece às vezes junto ao texto e às vezes separado, para padronizar irei deixar separado do texto, assim como no app de vocês.
