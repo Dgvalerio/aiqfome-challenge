@@ -969,6 +969,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@t3-oss/env-core@npm:0.13.4":
+  version: 0.13.4
+  resolution: "@t3-oss/env-core@npm:0.13.4"
+  peerDependencies:
+    arktype: ^2.1.0
+    typescript: ">=5.0.0"
+    valibot: ^1.0.0-beta.7 || ^1.0.0
+    zod: ^3.24.0 || ^4.0.0-beta.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+    valibot:
+      optional: true
+    zod:
+      optional: true
+  checksum: 10c0/3598c1582b4cd0aead095a492d60cb7656ffa308c0362744fe32f04ec6563601c04d898c0da7b5efb4dc7ace1d3b18a77f268a15a9e940a6997d9dd84f86a749
+  languageName: node
+  linkType: hard
+
+"@t3-oss/env-nextjs@npm:^0.13.4":
+  version: 0.13.4
+  resolution: "@t3-oss/env-nextjs@npm:0.13.4"
+  dependencies:
+    "@t3-oss/env-core": "npm:0.13.4"
+  peerDependencies:
+    typescript: ">=5.0.0"
+    valibot: ^1.0.0-beta.7 || ^1.0.0
+    zod: ^3.24.0 || ^4.0.0-beta.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+    valibot:
+      optional: true
+    zod:
+      optional: true
+  checksum: 10c0/140450041df8b37fd1dfdb281774fd254237af66cf784c9a9fbb047167bd3bcb1cc0ca4dc0c8fd82557904027c0a2edcc56bdd27b15e30a8a6e2285a42f42ef0
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/node@npm:4.1.4":
   version: 4.1.4
   resolution: "@tailwindcss/node@npm:4.1.4"
@@ -1593,6 +1632,7 @@ __metadata:
     "@radix-ui/react-label": "npm:^2.1.4"
     "@radix-ui/react-radio-group": "npm:^1.3.4"
     "@radix-ui/react-slot": "npm:^1.2.0"
+    "@t3-oss/env-nextjs": "npm:^0.13.4"
     "@tailwindcss/postcss": "npm:^4"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
@@ -1614,6 +1654,7 @@ __metadata:
     tailwindcss: "npm:^4"
     tw-animate-css: "npm:^1.2.8"
     typescript: "npm:^5"
+    zod: "npm:^3.24.3"
   languageName: unknown
   linkType: soft
 
@@ -5557,5 +5598,12 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.24.3":
+  version: 3.24.3
+  resolution: "zod@npm:3.24.3"
+  checksum: 10c0/ab0369810968d0329a1a141e9418e01e5c9c2a4905cbb7cb7f5a131d6e9487596e1400e21eeff24c4a8ee28dacfa5bd6103893765c055b7a98c2006a5a4fc68d
   languageName: node
   linkType: hard

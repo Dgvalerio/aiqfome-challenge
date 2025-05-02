@@ -5,6 +5,7 @@ import { ItemForm } from '@/app/(private)/store/[storeId]/item/[itemId]/(compone
 import { Item } from '@/types/item';
 import { ResponseAPI } from '@/types/response-api';
 import { Store } from '@/types/store';
+import { env } from '@/utils/constants/env';
 
 interface ItemPageProps {
   params: Promise<{ storeId: string; itemId: string }>;
@@ -15,7 +16,7 @@ const ItemPage: NextPage<ItemPageProps> = async ({ params }) => {
   const { storeId, itemId } = await params;
 
   const itemResponse = await fetch(
-    `http://localhost:3001/api/stores/${storeId}/item/${itemId}`
+    `${env.NEXT_PUBLIC_API_URL}/api/stores/${storeId}/item/${itemId}`
   );
 
   const {
@@ -29,7 +30,7 @@ const ItemPage: NextPage<ItemPageProps> = async ({ params }) => {
   }
 
   const storeResponse = await fetch(
-    `http://localhost:3001/api/stores/${storeId}`
+    `${env.NEXT_PUBLIC_API_URL}/api/stores/${storeId}`
   );
 
   const {

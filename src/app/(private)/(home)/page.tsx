@@ -1,20 +1,19 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 
+import { listStores } from '@/actions/store/actions';
 import { ClosedStores } from '@/app/(private)/(home)/(components)/closed';
 import { OpenedStores } from '@/app/(private)/(home)/(components)/opened';
 import { SearchInput } from '@/app/(private)/(home)/(components)/search-input';
 import { ToastWarning } from '@/components/sonner/toast';
-import { ResponseAPI } from '@/types/response-api';
 import { Store } from '@/types/store';
 
 import { isAfter, isBefore, set } from 'date-fns';
 
-const HomePage: NextPage = async () => {
-  const response = await fetch('http://localhost:3001/api/stores');
+export const dynamic = 'force-dynamic';
 
-  const { success, data, messages }: ResponseAPI<Store[]> =
-    await response.json();
+const HomePage: NextPage = async () => {
+  const { success, data, messages } = await listStores();
 
   const opened: Store[] = [];
   const closed: Store[] = [];

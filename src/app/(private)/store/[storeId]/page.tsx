@@ -5,6 +5,7 @@ import { StoreMenu } from '@/app/(private)/store/[storeId]/(components)/menu';
 import { ToastWarning } from '@/components/sonner/toast';
 import { ResponseAPI } from '@/types/response-api';
 import { Store } from '@/types/store';
+import { env } from '@/utils/constants/env';
 
 interface StorePageProps {
   params: Promise<{ storeId: string }>;
@@ -14,7 +15,9 @@ interface StorePageProps {
 const StorePage: NextPage<StorePageProps> = async ({ params }) => {
   const { storeId } = await params;
 
-  const response = await fetch(`http://localhost:3001/api/stores/${storeId}`);
+  const response = await fetch(
+    `${env.NEXT_PUBLIC_API_URL}/api/stores/${storeId}`
+  );
 
   const { success, data, messages }: ResponseAPI<Store> = await response.json();
 
