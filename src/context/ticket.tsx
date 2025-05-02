@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, FC, PropsWithChildren, useState } from 'react';
+import {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 export interface TicketStoreItems {
   id: string;
@@ -87,6 +93,20 @@ export const TicketProvider: FC<TicketProviderProps> = ({ children }) => {
       ),
     0
   );
+
+  useEffect(() => {
+    const ticketContext = localStorage.getItem('ticket-context');
+
+    if (ticketContext) setItems(JSON.parse(ticketContext));
+  }, []);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      localStorage.setItem('ticket-context', JSON.stringify(items));
+    } else {
+      localStorage.removeItem('ticket-context');
+    }
+  }, [items]);
 
   return (
     <TicketContext.Provider
