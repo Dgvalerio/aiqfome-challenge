@@ -45,13 +45,14 @@ const HomePage: NextPage = async () => {
     <>
       {!success && <ToastWarning messages={messages} />}
       <SearchInput className="pt-0" />
-      <Image
-        priority
-        width={390}
-        height={130}
-        src="/banner.png"
-        alt="Rango barato no dia das crianças! Peça com até 50% OFF"
-      />
+      <div className="relative min-h-[130px]">
+        <Image
+          priority
+          fill
+          src="/banner.png"
+          alt="Rango barato no dia das crianças! Peça com até 50% OFF"
+        />
+      </div>
       <OpenedStores stores={opened} />
       <ClosedStores stores={closed} />
     </>

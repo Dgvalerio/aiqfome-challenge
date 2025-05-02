@@ -65,7 +65,9 @@ export const ItemInfo: FC<Item> = ({
 
   return (
     <section className="border-neutrals-100 flex flex-col gap-4 border-b-4 pb-4">
-      <Image src={image} width={390} height={195} alt={name} priority />
+      <div className="relative min-h-[195px]">
+        <Image src={image} fill alt={name} priority />
+      </div>
       <div className="text-neutrals-500 flex flex-col gap-1.5 px-4 text-xs font-extrabold">
         <h1 className="text-neutrals-700 flex items-center gap-2 text-xl">
           {name} {isSpicy && <SpicyIcon />}
